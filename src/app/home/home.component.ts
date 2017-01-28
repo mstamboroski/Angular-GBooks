@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private homeService: HomeService,
+              private router: Router) { }
 
   ngOnInit() {
   }
+
+  searchBook(searchParams: string){
+    if (searchParams.length > 0) {
+      let navigationExtras: NavigationExtras = {
+        queryParams: { 'searchParams' : searchParams }
+      };
+      this.router.navigate(['/search-result'], navigationExtras);
+    }
+  }
+
 
 }

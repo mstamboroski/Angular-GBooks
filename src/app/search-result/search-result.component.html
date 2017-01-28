@@ -1,3 +1,33 @@
-<p>
-  search-result works!
-</p>
+<!--
+<div class="list-group">
+  <a routerLink="/search-result/#"class="list-group-item" *ngFor="let result of searchResult">
+    <span [class]="favoriteStarClass" 
+              aria-hidden="true"
+              (click)="bookFavorited(bookName.value)">
+      </span>
+    <h4 class="list-group-item-heading" #bookName>
+       {{ result.title }}
+    </h4>
+    <p class="list-group-item-text">{{ result.description }}</p>
+  </a>
+</div>
+-->
+
+<div class="list-group">
+  <div class="row" *ngFor="let result of searchResult">
+    <div class="col-md-1">
+        <span [class]="favoriteStarClass" 
+                aria-hidden="true"
+                (click)="bookFavorited(bookName.value)">
+        </span>
+    </div>
+    <div class="col-md-11">
+      <a routerLink="/search-result/#"class="list-group-item">
+        <h4 class="list-group-item-heading" #bookName>
+          {{ result.title }}
+        </h4>
+        <p class="list-group-item-text">{{ result.description }}</p>
+      </a>
+    </div>
+  </div>
+</div>

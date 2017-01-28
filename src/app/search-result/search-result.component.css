@@ -1,0 +1,8 @@
+.col-md-1{
+    text-align: right;
+}
+.col-md-1 span{
+    text-align: right;
+    font-size: large;
+    line-height: 30px;
+}

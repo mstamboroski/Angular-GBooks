@@ -5,9 +5,10 @@
   </div>
   <div class="row">
     <div class="col-sx-12">
-      <input type="text">
+      <input type="text" #searchParams>
       <button type="button" 
-              class="btn btn-default btn-lg">
+              class="btn btn-default btn-lg"
+              (click)="searchBook(searchParams.value)">
               <span class="glyphicon glyphicon-search" 
               aria-hidden="true">
               </span>
