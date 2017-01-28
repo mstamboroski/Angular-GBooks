@@ -3,7 +3,7 @@
     <div class="col-md-1">
         <span [class]="favoriteStarClass" 
                 aria-hidden="true"
-                (click)="bookFavorited(bookName.value)">
+                (click)="bookFavorited()">
         </span>
     </div>
     <div class="col-md-11">
@@ -15,4 +15,5 @@
       </button>
     </div>
   </div>
+  <app-pagination displayNumber="3" [totalPageNumber]="pagesResultNumber" (currentPageChanged)="loadNewPageResults($event.newPage)"></app-pagination>
 </div>

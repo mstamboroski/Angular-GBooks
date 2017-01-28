@@ -15,7 +15,10 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   gotServerResponse = false;
   searchResult: any[] = [{}];
   searchQuery: string;
-  subscriber: Subscription;
+  routSubscriber: Subscription;
+  querySubscriber: Subscription;
+  pagesResultNumber = 1;
+  resultsPerPage = 10;
 
   constructor(private searchService: SearchResultService,
               private activatedRoute: ActivatedRoute,
@@ -23,7 +26,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-     this.subscriber = this.activatedRoute.queryParams.subscribe(
+     this.routSubscriber = this.activatedRoute.queryParams.subscribe(
       (queryParams: any) => this.searchQuery = queryParams['searchParams']
     );
 
@@ -31,14 +34,19 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.router.navigate(['']);
     }
 
-    this.searchService.getResult(this.searchQuery).subscribe( response => {this.searchResult = response.items; this.gotServerResponse = true;});
+    this.querySubscriber = this.searchService.getResult(this.searchQuery).subscribe( response => {
+        this.searchResult = response.items; 
+        this.gotServerResponse = true;
+        this.pagesResultNumber = +response.totalItems / this.resultsPerPage;
+      });
   }
 
   ngOnDestroy() {
-    this.subscriber.unsubscribe();
+    this.routSubscriber.unsubscribe();
+    this.querySubscriber.unsubscribe();
   }
 
-  bookFavorited(bookName: string) {
+  bookFavorited() {
     this.favoriteStarClass = 'glyphicon glyphicon-star';
   }
 
@@ -48,5 +56,11 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         queryParams: { 'book' : bookObject.id }
       };
       this.router.navigate(['/book-detail'], navigationExtras);
+  }
+
+  loadNewPageResults(pageNumber: string) {
+    this.querySubscriber.unsubscribe();
+    let paginatedSearchQuery = this.searchQuery + '&maxResults=10&startIndex=' + (+pageNumber - 1).toString();
+    this.querySubscriber = this.searchService.getResult(paginatedSearchQuery).subscribe( response => {this.searchResult = response.items; this.gotServerResponse = true;});
   }
 }

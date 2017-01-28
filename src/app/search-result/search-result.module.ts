@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { SearchResultComponent } from './search-result.component';
 import { SearchResultRoutingModule } from './search-result.routing.module';
 import { SearchResultService } from './search-result.service';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        SearchResultRoutingModule
+        SearchResultRoutingModule,
+
     ],
     exports: [],
     declarations: [
-        SearchResultComponent
+        SearchResultComponent,
+        PaginationComponent
     ],
     providers: [SearchResultService],
 })

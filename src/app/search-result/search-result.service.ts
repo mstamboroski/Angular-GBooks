@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SearchResultService {
 
-  // Using a static atribute because I was having trouble communicating between services. Ok because it is a prototype and I didn't had much time, but it's not a good solution.
+  // Using a static atribute because I was having trouble communicating between services. The idea is to pass the book json object between services
+  // so I don't need to make multiple API requests. Ok because it is a prototype and I didn't had much time, but it's not a good solution.
   static bookSelected: any;
 
   baseQueryUrl = "https://www.googleapis.com/books/v1/volumes?q=";
