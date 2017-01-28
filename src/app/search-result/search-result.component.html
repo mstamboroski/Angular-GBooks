@@ -22,12 +22,12 @@
         </span>
     </div>
     <div class="col-md-11">
-      <a routerLink="/search-result/#"class="list-group-item">
-        <h4 class="list-group-item-heading" #bookName>
-          {{ result.title }}
+      <button class="list-group-item" (click)="bookDetails(result.id)">
+        <h4 class="list-group-item-heading">
+          {{ result.volumeInfo.title }}
         </h4>
-        <p class="list-group-item-text">{{ result.description }}</p>
-      </a>
+        <p class="list-group-item-text">{{ result.volumeInfo.description }}</p>
+      </button>
     </div>
   </div>
 </div>

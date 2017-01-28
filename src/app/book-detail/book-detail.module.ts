@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { BookDetailComponent }   from './book-detail.component';
+import { BookDetailComponent } from './book-detail.component';
+import { BookDetailRoutingModule } from './book-detail.routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule
+        BookDetailRoutingModule
     ],
     exports: [],
     declarations: [

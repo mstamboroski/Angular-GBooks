@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchBook(searchParams: string){
+  searchBook(searchParams: string) {
     if (searchParams.length > 0) {
-      let navigationExtras: NavigationExtras = {
+      const navigationExtras: NavigationExtras = {
         queryParams: { 'searchParams' : searchParams }
       };
       this.router.navigate(['/search-result'], navigationExtras);
