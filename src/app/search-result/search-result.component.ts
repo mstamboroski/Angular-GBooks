@@ -12,6 +12,7 @@ import { SearchResultService } from './search-result.service';
 export class SearchResultComponent implements OnInit, OnDestroy {
 
   favoriteStarClass = 'glyphicon glyphicon-star-empty';
+  gotServerResponse = false;
   searchResult: any[] = [{}];
   searchQuery: string;
   subscriber: Subscription;
@@ -30,7 +31,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.router.navigate(['']);
     }
 
-    this.searchResult = this.searchService.getResult(this.searchQuery);
+    this.searchService.getResult(this.searchQuery).subscribe( response => {this.searchResult = response.items; this.gotServerResponse = true;});
   }
 
   ngOnDestroy() {
@@ -41,13 +42,11 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.favoriteStarClass = 'glyphicon glyphicon-star';
   }
 
-  bookDetails(id: string) {
-    if (id.length > 0) {
-      this.searchService.bookSelected(id);
+  bookDetails(bookObject: any) {
+      this.searchService.bookSelected(bookObject);
       const navigationExtras: NavigationExtras = {
-        queryParams: { 'book' : id }
+        queryParams: { 'book' : bookObject.id }
       };
       this.router.navigate(['/book-detail'], navigationExtras);
-    }
   }
 }

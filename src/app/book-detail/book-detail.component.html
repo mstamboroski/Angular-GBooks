@@ -4,7 +4,11 @@
     <h3 class="panel-title">{{ bookDetails.volumeInfo.title }}</h3>
   </div>
   <div class="panel-body">
-    <img [src]="bookDetails.volumeInfo.imageLinks.smallThumbnail"/>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-5">
+        <img [src]="bookDetails.volumeInfo.imageLinks.thumbnail" alt="Book cover"/>
+      </div>
+    </div>
     <h4>Authors:</h4>
     <ul>
       <li *ngFor="let author of bookDetails.volumeInfo.authors"> {{ author }}</li>

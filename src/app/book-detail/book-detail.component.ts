@@ -14,13 +14,6 @@ export class BookDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    /*this.bookDetails = this.bookDetailService.getBookDetails();
-    console.log(this.bookDetails);*/
-    /*SearchResultService.choosedBookObjectEmitter.subscribe(
-      book => {this.bookDetails = book;
-        console.log(book);
-    }
-    );*/
     this.bookDetails = SearchResultService.bookSelected;
   }
 

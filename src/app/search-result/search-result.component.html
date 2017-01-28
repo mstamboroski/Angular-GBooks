@@ -1,19 +1,4 @@
-<!--
-<div class="list-group">
-  <a routerLink="/search-result/#"class="list-group-item" *ngFor="let result of searchResult">
-    <span [class]="favoriteStarClass" 
-              aria-hidden="true"
-              (click)="bookFavorited(bookName.value)">
-      </span>
-    <h4 class="list-group-item-heading" #bookName>
-       {{ result.title }}
-    </h4>
-    <p class="list-group-item-text">{{ result.description }}</p>
-  </a>
-</div>
--->
-
-<div class="list-group">
+<div class="list-group" *ngIf="gotServerResponse">
   <div class="row" *ngFor="let result of searchResult">
     <div class="col-md-1">
         <span [class]="favoriteStarClass" 
@@ -22,7 +7,7 @@
         </span>
     </div>
     <div class="col-md-11">
-      <button class="list-group-item" (click)="bookDetails(result.id)">
+      <button class="list-group-item" (click)="bookDetails(result)">
         <h4 class="list-group-item-heading">
           {{ result.volumeInfo.title }}
         </h4>
