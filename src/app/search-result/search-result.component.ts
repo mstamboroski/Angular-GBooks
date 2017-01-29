@@ -11,12 +11,17 @@ import { SearchResultService } from './search-result.service';
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
 
+  // This component has the responsability to show the results from the search
+
+  // Icon for the favorite book toggle
   favoriteStarClass = 'glyphicon glyphicon-star-empty';
+  // Boolean the control the page loading after get the response from server
   gotServerResponse = false;
   searchResult: any[] = [{}];
   searchQuery: string;
   routSubscriber: Subscription;
   querySubscriber: Subscription;
+  // Variables to calculate how many pages are going to be paginated and how many result will be displayed per page
   pagesResultNumber = 1;
   resultsPerPage = 10;
 
@@ -26,14 +31,17 @@ export class SearchResultComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
+    // Get the parameters for the book query
      this.routSubscriber = this.activatedRoute.queryParams.subscribe(
       (queryParams: any) => this.searchQuery = queryParams['searchParams']
     );
 
+    // If no query, go back to the home
     if (this.searchQuery == null || this.searchQuery.length <= 0) {
       this.router.navigate(['']);
     }
 
+    // Get the results from quering the server, and then calculate the total number of pages to be paginated
     this.querySubscriber = this.searchService.getResult(this.searchQuery).subscribe( response => {
         this.searchResult = response.items; 
         this.gotServerResponse = true;
@@ -47,9 +55,10 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   }
 
   bookFavorited() {
-    this.favoriteStarClass = 'glyphicon glyphicon-star';
+    this.favoriteStarClass = this.favoriteStarClass === 'glyphicon glyphicon-star' ? 'glyphicon glyphicon-star-empty' : 'glyphicon glyphicon-star';
   }
 
+  // On click, navigated to the book detail page
   bookDetails(bookObject: any) {
       this.searchService.bookSelected(bookObject);
       const navigationExtras: NavigationExtras = {
@@ -58,6 +67,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.router.navigate(['/book-detail'], navigationExtras);
   }
 
+  // On click on pagination controller, reload the results for the next bacth of informations
   loadNewPageResults(pageNumber: string) {
     this.querySubscriber.unsubscribe();
     let paginatedSearchQuery = this.searchQuery + '&maxResults=10&startIndex=' + (+pageNumber - 1).toString();

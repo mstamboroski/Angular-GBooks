@@ -14,6 +14,7 @@ export class BookDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Here is where I had to use the static variable to get the book object
     this.bookDetails = SearchResultService.bookSelected;
   }
 

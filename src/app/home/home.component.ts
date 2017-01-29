@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  //After getting the input from the html, it routs to the search-result component, passing the paramters as a query
   searchBook(searchParams: string) {
     if (searchParams.length > 0) {
       const navigationExtras: NavigationExtras = {

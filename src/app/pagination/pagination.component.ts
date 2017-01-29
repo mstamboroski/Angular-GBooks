@@ -7,6 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
 
+  // The idea was to build a generic pagination component. It receives as Input properties the total number os pages and how many buttons it should show per page
+  // The Output property is used to emmit when a click on an page controller happens, so the parent can reload the page with the right parameters
   pagesNumber = [1];
   currentPage = 1;
   @Output() currentPageChanged = new EventEmitter();
