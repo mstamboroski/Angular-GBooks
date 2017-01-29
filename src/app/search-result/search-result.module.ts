@@ -5,17 +5,18 @@ import { SearchResultComponent } from './search-result.component';
 import { SearchResultRoutingModule } from './search-result.routing.module';
 import { SearchResultService } from './search-result.service';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { HighlightTextPipe } from './../highlight-text.pipe';
 
 @NgModule({
     imports: [
         CommonModule,
-        SearchResultRoutingModule,
-
+        SearchResultRoutingModule
     ],
     exports: [],
     declarations: [
         SearchResultComponent,
-        PaginationComponent
+        PaginationComponent,
+        HighlightTextPipe
     ],
     providers: [SearchResultService],
 })
