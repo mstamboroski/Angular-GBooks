@@ -1,20 +1,15 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+// Run the app by serving the static files
+// in the dist directory
+app.use(express.static(__dirname + '/dist'));
 
-// set the port of our application
-// process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
-
-// make express look in the public directory for assets (css/js/img)
-app.use(express.static(__dirname + '/app'));
-
-// set the home page route
-app.get('/', function(req, res) {
-
-    // make sure index is in the right directory. In this case /app/index.html
-    res.render('index');
+// For all GET requests, send back index.html
+// so that PathLocationStrategy can be used
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-app.listen(port, function() {
-    console.log('Our app is running on http://localhost:' + port);
-});
+// Start the app by listening on the default
+// Heroku port
+app.listen(process.env.PORT || 8080);
