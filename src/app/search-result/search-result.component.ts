@@ -24,6 +24,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   // Variables to calculate how many pages are going to be paginated and how many result will be displayed per page
   pagesResultNumber = 1;
   resultsPerPage = 10;
+  totalItensResult = 1;
+  currentShowingResultsNumberMin = 1;
+  currentShowingResultsNumberMax = this.resultsPerPage;
 
   constructor(private searchService: SearchResultService,
               private activatedRoute: ActivatedRoute,
@@ -46,6 +49,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.searchResult = response.items; 
         this.gotServerResponse = true;
         this.pagesResultNumber = +response.totalItems / this.resultsPerPage;
+        this.totalItensResult = +response.totalItems;
       });
   }
 
@@ -72,5 +76,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.querySubscriber.unsubscribe();
     let paginatedSearchQuery = this.searchQuery + '&maxResults=10&startIndex=' + (+pageNumber - 1).toString();
     this.querySubscriber = this.searchService.getResult(paginatedSearchQuery).subscribe( response => {this.searchResult = response.items; this.gotServerResponse = true;});
+    this.currentShowingResultsNumberMax = +pageNumber * +this.resultsPerPage;
+    this.currentShowingResultsNumberMin = +this.currentShowingResultsNumberMax - +this.resultsPerPage + 1;
   }
 }

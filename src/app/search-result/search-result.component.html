@@ -1,4 +1,7 @@
 <div class="list-group" *ngIf="gotServerResponse">
+  <div>
+    <p>Showing {{ currentShowingResultsNumberMin }} to {{ currentShowingResultsNumberMax }} from {{ totalItensResult }} results.</p>
+  </div>
   <div class="row" *ngFor="let result of searchResult">
     <div class="col-md-1">
         <span [class]="favoriteStarClass" 
@@ -15,6 +18,6 @@
         <p class="list-group-item-text">{{ result.volumeInfo.description }}</p>
       </button>
     </div>
-  </div>
+  </div>  
   <app-pagination displayNumber="3" [totalPageNumber]="pagesResultNumber" (currentPageChanged)="loadNewPageResults($event.newPage)"></app-pagination>
 </div>
