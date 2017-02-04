@@ -11,11 +11,8 @@
     </div>
     <div class="col-md-11">
       <button class="list-group-item" (click)="bookDetails(result)">
-        <h4 class="list-group-item-heading">
-          {{ result.volumeInfo.title }}
-        </h4>
-        <!--<p class="list-group-item-text">{{ result.volumeInfo.description | highlighttext }}</p>-->
-        <p class="list-group-item-text">{{ result.volumeInfo.description }}</p>
+        <h4 class="list-group-item-heading" [innerHTML]="result.volumeInfo.title | highlighttext:searchQuery"></h4>
+        <p class="list-group-item-text" [innerHTML]="result.volumeInfo.description | highlighttext:searchQuery"></p>
       </button>
     </div>
   </div>  

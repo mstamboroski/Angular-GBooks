@@ -1,26 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser'
+
 
 @Pipe({
-  name: 'highlighttext'
+  name: 'highlighttext',
+  pure: false
 })
 export class HighlightTextPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    let argList = args? args.split(' ') : [];
-    if (value === undefined)
-      return;
-    let values = value.split(' ');
-    let result = '';
+  constructor(private sanitized: DomSanitizer) {}
+  
+  transform(text: any, search): any {
+    if (!(typeof text === 'string')) return;
+    var pattern = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    pattern = pattern.split(' ').filter((t) => {
+      return t.length > 0;
+    }).join('|');
+    var regex = new RegExp(pattern, 'gi');
 
-    for (let v of values) {
-      if(v === 'a') {
-        result += '<span class="highlighted"> ' + v + '</span>';
-      }
-      else{
-        result += ' ' + v;
-      }
-    }
-    return result;
+    return search ? 
+                  this.sanitized.bypassSecurityTrustHtml(text.replace(regex, (match) => `<span style="background-color:yellow">${match}</span>`))
+                  : text;
   }
 
 }
