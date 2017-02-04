@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchResultComponent } from './search-result.component';
 
 const searchResultRoutes: Routes = [
-    { path: 'search-result', component: SearchResultComponent },
-    { path: 'search-result/:searchParams', component: SearchResultComponent }
+    { path: '', component: SearchResultComponent },
+    { path: ':searchParams', component: SearchResultComponent }
 ];
 
 @NgModule({

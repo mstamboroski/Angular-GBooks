@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookDetailComponent } from './book-detail.component';
 
 const bookDeatilRoutes: Routes = [
-    { path: 'book-detail', component: BookDetailComponent },
-    { path: 'book-detail/:book', component: BookDetailComponent }
+    { path: '', component: BookDetailComponent },
+    { path: ':book', component: BookDetailComponent }
 ];
 
 @NgModule({
